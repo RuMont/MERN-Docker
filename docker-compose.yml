@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      NODE_ENV: production
+    depends_on:
+      - mongo
+    networks:
+      - root-network
+  mongo:
+    image: mongo
+    command: mongod --quiet --logpath /dev/null
+    volumes:
+      - data-volume:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - root-network
+
+networks:
+    root-network:
+        driver: bridge
+
+volumes:
+    data-volume:
+    node_modules:
+    web-root:
+      driver: local

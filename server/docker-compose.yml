@@ -1,0 +1,21 @@
+version: '3.3'
+
+services:
+  root:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: root-img
+    container_name: root_backend
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    container_name: root_db
+    ports:
+      - "27017:27017"
